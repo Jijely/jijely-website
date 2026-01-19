@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon | Nacer Al Jazair Bouni9ia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Cairo:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,191 +18,308 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Animated Background Particles */
-        .particles {
-            position: absolute;
+        /* Background Image */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            z-index: -2;
+        }
+
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        /* Animated Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 100, 80, 0.7) 0%,
+                rgba(0, 50, 50, 0.8) 50%,
+                rgba(0, 30, 60, 0.9) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Main Container */
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 1000px;
+        }
+
+        /* Coming Soon Text */
+        .coming-soon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-out;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Brand Name */
+        .brand-name {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.3),
+                0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        .location {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .location span {
+            color: #00ffcc;
+        }
+
+        /* Countdown Container */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        /* Time Box */
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px 20px;
+            min-width: 130px;
+            position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .time-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .time-box:hover::before {
+            left: 100%;
+        }
+
+        .time-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(0, 255, 204, 0.2);
+            border-color: rgba(0, 255, 204, 0.5);
+        }
+
+        /* Animated Number */
+        .time-value {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1;
+            display: block;
+            position: relative;
+            text-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+        }
+
+        .time-value.flip {
+            animation: flipNumber 0.6s ease-in-out;
+        }
+
+        @keyframes flipNumber {
+            0% {
+                transform: perspective(400px) rotateX(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: perspective(400px) rotateX(-90deg);
+                opacity: 0;
+            }
+            51% {
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: perspective(400px) rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        .time-label {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Separator */
+        .separator {
+            font-size: 4rem;
+            color: #00ffcc;
+            align-self: center;
+            animation: blink 1s infinite;
+            margin-top: -20px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Launch Date */
+        .launch-date {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            animation: fadeInUp 1.6s ease-out;
+            background: rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .launch-date span {
+            color: #00ffcc;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: 0;
         }
 
         .particle {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 6px;
+            height: 6px;
+            background: rgba(0, 255, 204, 0.6);
             border-radius: 50%;
-            animation: float 15s infinite;
+            animation: rise 10s infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
         }
 
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 20s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 25s; }
-        .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 18s; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 1s; animation-duration: 22s; }
-        .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 19s; }
-        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 21s; }
-        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; animation-duration: 24s; }
-        .particle:nth-child(8) { left: 80%; animation-delay: 2.5s; animation-duration: 17s; }
-        .particle:nth-child(9) { left: 90%; animation-delay: 4.5s; animation-duration: 23s; }
+        .particle:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 15%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 25%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 35%; animation-delay: 1.5s; }
+        .particle:nth-child(5) { left: 45%; animation-delay: 0.5s; }
+        .particle:nth-child(6) { left: 55%; animation-delay: 2.5s; }
+        .particle:nth-child(7) { left: 65%; animation-delay: 3s; }
+        .particle:nth-child(8) { left: 75%; animation-delay: 1.8s; }
+        .particle:nth-child(9) { left: 85%; animation-delay: 0.8s; }
+        .particle:nth-child(10) { left: 95%; animation-delay: 2.2s; }
 
-        @keyframes float {
+        @keyframes rise {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                bottom: -10%;
                 opacity: 0;
+                transform: scale(0);
             }
             10% {
                 opacity: 1;
+                transform: scale(1);
             }
             90% {
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) rotate(720deg);
+                bottom: 110%;
                 opacity: 0;
+                transform: scale(0.5);
             }
         }
 
-        .container {
-            text-align: center;
-            z-index: 1;
-            padding: 40px;
-        }
-
-        .coming-soon {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #e94560;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .brand-name {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 50px;
-            text-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
-            }
-            to {
-                text-shadow: 0 0 60px rgba(233, 69, 96, 0.8), 0 0 100px rgba(233, 69, 96, 0.4);
-            }
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 50px;
-        }
-
-        .time-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px 25px;
-            min-width: 120px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .time-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(233, 69, 96, 0.3);
-        }
-
-        .time-value {
-            font-size: 4rem;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1;
-            display: block;
-        }
-
-        .time-label {
-            font-size: 0.9rem;
-            font-weight: 300;
-            color: #e94560;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 10px;
-            display: block;
-        }
-
-        .launch-date {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 300;
-        }
-
-        .launch-date span {
-            color: #e94560;
-            font-weight: 600;
-        }
-
-        /* Decorative Elements */
-        .circle-decoration {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(233, 69, 96, 0.2);
-            animation: rotate 20s linear infinite;
-        }
-
-        .circle-1 {
-            width: 500px;
-            height: 500px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .circle-2 {
-            width: 700px;
-            height: 700px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-direction: reverse;
-            animation-duration: 30s;
-        }
-
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .brand-name {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
             }
 
             .coming-soon {
                 font-size: 1rem;
-                letter-spacing: 5px;
+                letter-spacing: 8px;
+            }
+
+            .countdown {
+                gap: 10px;
             }
 
             .time-box {
-                min-width: 80px;
-                padding: 20px 15px;
+                min-width: 70px;
+                padding: 15px 10px;
             }
 
             .time-value {
@@ -210,12 +327,45 @@
             }
 
             .time-label {
-                font-size: 0.7rem;
+                font-size: 0.6rem;
+                letter-spacing: 2px;
+            }
+
+            .separator {
+                font-size: 2rem;
+                margin-top: -10px;
+            }
+
+            .launch-date {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .separator {
+                display: none;
+            }
+
+            .countdown {
+                gap: 8px;
+            }
+
+            .time-box {
+                min-width: 65px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Background Image of Jijel -->
+    <div class="background">
+        <img src="https://images.unsplash.com/photo-1583425423320-b44de6c658ae?q=80&w=2070&auto=format&fit=crop" alt="Jijel Algeria">
+    </div>
+
+    <div class="overlay"></div>
+
+    <!-- Floating Particles -->
     <div class="particles">
         <div class="particle"></div>
         <div class="particle"></div>
@@ -226,38 +376,43 @@
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
-    <div class="circle-decoration circle-1"></div>
-    <div class="circle-decoration circle-2"></div>
-
     <div class="container">
-        <p class="coming-soon">Coming Soon</p>
+        <p class="coming-soon">✨ Coming Soon ✨</p>
         <h1 class="brand-name">Nacer Al Jazair Bouni9ia</h1>
+        <p class="location">📍 <span>Jijel, Algeria</span></p>
         
         <div class="countdown">
             <div class="time-box">
                 <span class="time-value" id="days">00</span>
                 <span class="time-label">Days</span>
             </div>
+            <span class="separator">:</span>
             <div class="time-box">
                 <span class="time-value" id="hours">00</span>
                 <span class="time-label">Hours</span>
             </div>
+            <span class="separator">:</span>
             <div class="time-box">
                 <span class="time-value" id="minutes">00</span>
                 <span class="time-label">Minutes</span>
             </div>
+            <span class="separator">:</span>
             <div class="time-box">
                 <span class="time-value" id="seconds">00</span>
                 <span class="time-label">Seconds</span>
             </div>
         </div>
 
-        <p class="launch-date">Launching on <span>February 1st, 2025</span></p>
+        <p class="launch-date">🚀 Launching <span>February 1st, 2025</span></p>
     </div>
 
     <script>
+        // Store previous values to detect changes
+        let prevValues = { days: '', hours: '', minutes: '', seconds: '' };
+
         function updateCountdown() {
             const launchDate = new Date('February 1, 2025 00:00:00').getTime();
             const now = new Date().getTime();
@@ -269,16 +424,40 @@
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                const values = {
+                    days: days.toString().padStart(2, '0'),
+                    hours: hours.toString().padStart(2, '0'),
+                    minutes: minutes.toString().padStart(2, '0'),
+                    seconds: seconds.toString().padStart(2, '0')
+                };
+
+                // Update and animate each value if changed
+                Object.keys(values).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (values[key] !== prevValues[key]) {
+                        element.textContent = values[key];
+                        element.classList.remove('flip');
+                        void element.offsetWidth; // Trigger reflow
+                        element.classList.add('flip');
+                        prevValues[key] = values[key];
+                    }
+                });
+
             } else {
-                document.querySelector('.countdown').innerHTML = '<h2 style="color: #e94560; font-size: 3rem;">We Are Live! 🚀</h2>';
+                document.querySelector('.countdown').innerHTML = `
+                    <div style="text-align: center;">
+                        <h2 style="color: #00ffcc; font-size: 3rem; text-shadow: 0 0 30px rgba(0, 255, 204, 0.8);">
+                            🎉 We Are Live! 🎉
+                        </h2>
+                    </div>
+                `;
             }
         }
 
+        // Initial call
         updateCountdown();
+        
+        // Update every second
         setInterval(updateCountdown, 1000);
     </script>
 </body>
